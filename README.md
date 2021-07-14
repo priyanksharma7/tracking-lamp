@@ -12,15 +12,22 @@ This repo documents the steps and scripts required to run the tracking lamp prog
 ## Software requirements
 
 1. opencv >= 4.5.0
-2. imutils
-3. pantilthat
+2. smbus
+3. imutils
+4. pantilthat
 
 Build OpenCV from source on Jetson Nano: https://qengineering.eu/install-opencv-4.5-on-jetson-nano.html
 
 Build OpenCV from source on Raspberry Pi 4: https://qengineering.eu/install-opencv-4.5-on-raspberry-pi-4.html
 
+    sudo apt-get install python3-smbus
     pip install imutils
     pip install pantilthat
+    
+Note: If you are working in a virtual environment, you need to create a sym-link `smbus` into your virtual environment:
+
+    cd <virtual env>/lib/python3.6/site-packages/
+    ln -s /usr/lib/python3/dist-packages/smbus.cpython-35m-arm-linux-gnueabihf.so smbus.so
 
 # File Desciptions
 
@@ -40,15 +47,15 @@ Note: Press 'q' to exit.
 `2_tracking.py` : Combination of DL detector and OpenCV tracker to achieve higher FPS. 3 OpenCV trackers available (read more [here](https://www.pyimagesearch.com/2018/07/30/opencv-object-tracking/)):  
 csrt : Slower but more accurate  
 kcf : Faster but less accurate  
-mosse : Extremely fast and not as accurate as CSRT or KCF (default)  
+`mosse` : Extremely fast and not as accurate as CSRT or KCF (**default**)  
 
 Threshold confidence can be passed as a float value < 1. Default is `0.8`.
 
-Skip frames refers to the number of frames that should be skipped before running the detector. For example, if the video throughput is 15 FPS, it means 15 frames are being processed every second. Setting skip_frames=15 means that the detector will be run after every 15 frames or 1 second. (read more [here](https://www.pyimagesearch.com/2018/08/13/opencv-people-counter/)). Default is `15`.
+Skip frames refers to the number of frames that should be skipped before running the detector. For example, if the video throughput is 15 FPS, it means 15 frames are being processed every second. Setting skip-frames=15 means that the detector will be run after every 15 frames or 1 second. (read more [here](https://www.pyimagesearch.com/2018/08/13/opencv-people-counter/)). Default is `15`.
 
 Width of the processed frame can be passed as an int. The aspect ratio is preserved. Smaller dimensions mean lesser pixels to process and therefore an increase in performance. Default is `500`.
 
-    python 2_tracking.py -m 2 --tracker mosse --confidence 0.8 --skip_frames 15 --width 500
+    python 2_tracking.py -m 2 --tracker mosse --confidence 0.8 --skip-frames 15 --width 500
 
 *Note: Experiment and adjust these 4 parameters: tracker type, confidence, skip frames and frame width to achieve a good balance between speed and accuracy. The above defaults work on my Jetson Nano.*
 
@@ -57,6 +64,8 @@ Width of the processed frame can be passed as an int. The aspect ratio is preser
 `3_fullsystem.py` : This program detects hands and drives the pan-tilt motors to keep the target object in the middle of the frame. A Pan Tilt HAT is used to control the 2 servo motors and the camera is mouted on top. Since a Pan Tilt HAT cannot be connected to a laptop/desktop, this program can run only on Raspberry Pi (mode=0) or a Jetson Nano (mode=1). Another important step is tuning the pan and tilt PIDs independently. Please refer to the source [here](https://www.pyimagesearch.com/2019/04/01/pan-tilt-face-tracking-with-a-raspberry-pi-and-opencv/). I have infused my hand tracking algorithm into the pan tilt program by Adrian Rosebrock of [PyImageSearch](https://www.pyimagesearch.com/). The 4 parameters descibed in the previous program are available in this program too and can be adjusted similarly.
 
     python 3_fullsystem.py -m 1 (for Jetson Nano)
+    
+Note: Press 'Ctrl+C' in the terminal to exit.
 
 ## Light Source
 
