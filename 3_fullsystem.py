@@ -1,5 +1,5 @@
 # Tracking program with pan-tilt mechanism
-# USAGE: python 3_fullsystem.py -m 2
+# USAGE: python 3_fullsystem.py -m 1
 # Credits: Adrian Rosebrock from PyImageSearch.com
 # https://www.pyimagesearch.com/2019/04/01/pan-tilt-face-tracking-with-a-raspberry-pi-and-opencv/
 
@@ -121,7 +121,7 @@ def obj_center(args, objX, objY, centerX, centerY):
 				# Create a new OpenCV tracker and add it to the Multitracker
 				tracker = OPENCV_OBJECT_TRACKERS[args["tracker"]]()
 				trackers.add(tracker, frame, tuple(rect))
-				print(i, confidence)
+				print("Hand detected :", confidence)
 
 		# grab the updated bounding box coordinates
 		(success, boxes) = trackers.update(frame)

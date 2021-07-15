@@ -59,9 +59,15 @@ Width of the processed frame can be passed as an int. The aspect ratio is preser
 
 *Note: Experiment and adjust these 4 parameters: tracker type, confidence, skip frames and frame width to achieve a good balance between speed and accuracy. The above defaults work on my Jetson Nano.*
 
+`pantilt.py` : Helper program to test the pantilthat library and visualize the range of the motors through 180° in 2 directions. A Pan Tilt HAT is connected to the 40 GPIO pins and controls the 2 servo motors. Since a Pan Tilt HAT cannot be connected to a laptop/desktop, this program can run only on Raspberry Pi or a Jetson Nano. The camera is attached on the top of the HAT.
+
+    python pantilt.py
+
+Note: Press 'Ctrl+C' in the terminal to exit.
+
 `pid.py` : Helper function to smooth out the control signal sent to the pan and tilt motors using a simple Proportional-Integral-Derivative controller.
 
-`3_fullsystem.py` : This program detects hands and drives the pan-tilt motors to keep the target object in the middle of the frame. A Pan Tilt HAT is used to control the 2 servo motors and the camera is mouted on top. Since a Pan Tilt HAT cannot be connected to a laptop/desktop, this program can run only on Raspberry Pi (mode=0) or a Jetson Nano (mode=1). Another important step is tuning the pan and tilt PIDs independently. Please refer to the source [here](https://www.pyimagesearch.com/2019/04/01/pan-tilt-face-tracking-with-a-raspberry-pi-and-opencv/). I have infused my hand tracking algorithm into the pan tilt program by Adrian Rosebrock of [PyImageSearch](https://www.pyimagesearch.com/). The 4 parameters descibed in the previous program are available in this program too and can be adjusted similarly.
+`3_fullsystem.py` : This program detects hands and drives the pan-tilt motors to keep the target object in the middle of the frame. It only works on Raspberry Pi (mode=0) or a Jetson Nano (mode=1). Another important step is tuning the pan and tilt PIDs independently. Please refer to the source [here](https://www.pyimagesearch.com/2019/04/01/pan-tilt-face-tracking-with-a-raspberry-pi-and-opencv/). I have infused my hand tracking algorithm into the pan tilt program by Adrian Rosebrock of [PyImageSearch](https://www.pyimagesearch.com/). The 4 parameters descibed in the previous program are available in this program too and can be adjusted similarly.
 
     python 3_fullsystem.py -m 1 (for Jetson Nano)
     
@@ -69,7 +75,7 @@ Note: Press 'Ctrl+C' in the terminal to exit.
 
 ## Light Source
 
-**Time to get creative!** A light source needs to be installed close to the camera so that light can focus where the pan-tilt mechanism is focusing the camera. I bought the smallest spotlight available in the shop and opened it up. After removing the AC-DC converter, I stuck a 9V battery underneath the Jetson Nano. The inside of the spotlight consisted of a LED and glass focus. I screwed it just below the camera and made sure that it is not obstrcuting the camera field of view.
+**Time to get creative!** A light source needs to be installed close to the camera so that the light can illuminate the area where the pan-tilt mechanism is focusing the camera. I bought a small spotlight and screwed it open. After removing the AC-DC converter, I stuck a 9V battery underneath the Jetson Nano. The inside of the spotlight consisted of a LED and glass focus. I screwed it just below the camera and made sure that it is not obstrcuting the camera field of view.
 
 ## Acknowledgements
 
