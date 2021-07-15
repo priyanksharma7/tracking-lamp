@@ -1,5 +1,9 @@
 # Smart Workbench Lamp
-This repo documents the steps and scripts required to run the tracking lamp program. 
+This repo documents the steps and scripts required to run the tracking lamp program.
+
+***
+
+<img src="media/1.gif" width="60%"><img src="media/2.gif" width="40%">
 
 ## Hardware requirements
 - A single-board computer with 40 GPIO pins such as NVIDIA Jetson Nano or Raspberry Pi 4 Model B
@@ -75,7 +79,13 @@ Note: Press 'Ctrl+C' in the terminal to exit.
 
 ## Light Source
 
-**Time to get creative!** A light source needs to be installed close to the camera so that the light can illuminate the area where the pan-tilt mechanism is focusing the camera. I bought a small spotlight and screwed it open. After removing the AC-DC converter, I stuck a 9V battery underneath the Jetson Nano. The inside of the spotlight consisted of a LED and glass focus. I screwed it just below the camera and made sure that it is not obstrcuting the camera field of view.
+**Time to get creative!** A light source needs to be installed close to the camera so that the light can illuminate the area where the pan-tilt mechanism is focusing the camera. I bought a small spotlight and screwed it open. After removing the AC-DC converter, I stuck a 9V battery underneath the Jetson Nano. The inside of the spotlight consisted of a LED and glass focus. I screwed it just below the camera and made sure that it is not obstructing the camera field of view.
+
+***
+
+<img width="10%"><img src="media/3.jpg" width="30%"><img width="20%"><img src="media/4.jpg" width="30%">
+
+***
 
 ## Acknowledgements
 
